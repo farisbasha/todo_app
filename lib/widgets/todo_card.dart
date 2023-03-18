@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todo_app/controller/home_controller.dart';
+import 'package:todo_app/model/todo.dart';
 
 class TodoCard extends StatefulWidget {
   const TodoCard({
     super.key,
-    required this.todoMessage,
+    required this.todo,
   });
 
-  final String todoMessage;
+  final Todo todo;
 
   @override
   State<TodoCard> createState() => _TodoCardState();
@@ -31,7 +34,7 @@ class _TodoCardState extends State<TodoCard> {
             Expanded(
               child: CheckboxListTile(
                 title: Text(
-                  widget.todoMessage,
+                  widget.todo.msg,
                   style: TextStyle(
                     decoration: isChecked
                         ? TextDecoration.lineThrough
@@ -45,7 +48,9 @@ class _TodoCardState extends State<TodoCard> {
                 },
                 controlAffinity: ListTileControlAffinity.leading,
                 secondary: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.find<HomeController>().removeTodoById(widget.todo.id);
+                    },
                     child: Icon(Icons.delete),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controller/home_controller.dart';
+import 'package:todo_app/pages/add_todo_page.dart';
 import 'package:todo_app/widgets/search_field.dart';
 import 'package:todo_app/widgets/todo_card.dart';
 
@@ -16,7 +17,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => AddTodoPage());
+        },
         child: Icon(
           Icons.add,
         ),
@@ -24,29 +27,31 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(15),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchField(),
-              SizedBox(height: 20),
-              Text(
-                "All Todos",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Obx(() => SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SearchField(),
+                  SizedBox(height: 20),
+                  Text(
+                    "All Todos",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ...homeController.todoList
+                      .map((o) => TodoCard(
+                            todo: o,
+                          ))
+                      .toList()
+                      .reversed
+                      .toList(),
+                ],
               ),
-              SizedBox(height: 20),
-              ...homeController.todoList
-                  .map((o) => TodoCard(
-                        todoMessage: o.msg,
-                      ))
-                  .toList(),
-            ],
-          ),
-        ),
+            )),
       )),
     );
   }

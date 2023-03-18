@@ -12,8 +12,8 @@ class SearchField extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
+      child: const Padding(
+        padding: EdgeInsets.symmetric(
           horizontal: 10.0,
           vertical: 5,
         ),

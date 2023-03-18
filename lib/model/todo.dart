@@ -3,5 +3,4 @@ class Todo {
 
   final int id;
   final String msg;
-  bool isChecked = false;
 }
